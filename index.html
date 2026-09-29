@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정부 안내서비스 통합 검색 포털</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts Inter & Noto Sans KR -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8fafc;
+        }
+        /* 공공기관 테마 색상 정의 */
+        .gov-primary { background-color: #0F2C59; }
+        .gov-primary-hover:hover { background-color: #1a3f7a; }
+        .gov-secondary { background-color: #1B4965; }
+        .gov-border { border-color: #cbd5e1; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col text-slate-800">
+
+    <!-- 상단 공공 포털 헤더 -->
+    <header class="gov-primary text-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-white text-indigo-900 p-2 rounded-lg font-black text-xl shadow-inner flex items-center justify-center w-10 h-10">
+                    GOV
+                </div>
+                <div>
+                    <h1 class="text-xl sm:text-2xl font-bold tracking-tight">대한민국 정부 안내서비스 포털</h1>
+                    <p class="text-xs text-blue-200 hidden sm:block">시민 중심의 빠르고 정확한 행정 정보 안내 서비스</p>
+                </div>
+            </div>
+            <div class="hidden md:flex items-center space-x-6 text-sm text-blue-100">
+                <a href="https://www.daegu.go.kr/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition flex items-center gap-1">
+                    <span>대구광역시 공식 홈페이지</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                </a>
+                <a href="https://www.index.go.kr/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition flex items-center gap-1">
+                    <span>국가지표체계</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 메인 컨테이너 -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- 알림 및 소개 배너 -->
+        <div class="bg-blue-50 border-l-4 border-indigo-900 p-4 mb-6 rounded-r-lg shadow-sm">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-indigo-900" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <p class="text-sm text-indigo-900 font-medium">
+                        찾고자 하시는 정부 안내서비스명을 검색하거나 안내분야, 소관기관별로 필터링하여 빠르게 확인하세요.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 검색 및 필터 컨트롤 패널 -->
+        <div class="bg-white rounded-xl shadow-md p-6 mb-8 border border-slate-200">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+                
+                <!-- 서비스명 실시간 검색바 -->
+                <div class="md:col-span-5 relative">
+                    <label for="searchInput" class="block text-xs font-semibold text-slate-600 mb-1">서비스명 검색</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            </svg>
+                        </span>
+                        <input type="text" id="searchInput" placeholder="예: 전입신고, 기초연금, 여권 등..." 
+                            class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-900 focus:bg-white focus:outline-none transition text-sm">
+                    </div>
+                </div>
+
+                <!-- 소관기관 필터 셀렉트 -->
+                <div class="md:col-span-3">
+                    <label for="agencyFilter" class="block text-xs font-semibold text-slate-600 mb-1">소관기관 필터</label>
+                    <select id="agencyFilter" class="w-full py-2.5 px-3 bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-900 focus:bg-white focus:outline-none transition text-sm">
+                        <option value="">전체 소관기관</option>
+                    </select>
+                </div>
+
+                <!-- 온라인안내 여부 필터 -->
+                <div class="md:col-span-2">
+                    <label for="onlineFilter" class="block text-xs font-semibold text-slate-600 mb-1">온라인안내 여부</label>
+                    <select id="onlineFilter" class="w-full py-2.5 px-3 bg-slate-50 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-900 focus:bg-white focus:outline-none transition text-sm">
+                        <option value="">전체 (가능/불가)</option>
+                        <option value="가능">가능</option>
+                        <option value="불가">불가</option>
+                    </select>
+                </div>
+
+                <!-- 초기화 버튼 -->
+                <div class="md:col-span-2 flex items-end pt-5 md:pt-0">
+                    <button id="resetBtn" class="w-full bg-slate-200 hover:bg-slate-300 text-slate-700 font-medium py-2.5 px-4 rounded-lg text-sm transition flex items-center justify-center gap-1.5 shadow-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                        <span>필터 초기화</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 안내분야 카테고리 탭 버튼 그룹 -->
+            <div class="mt-6 pt-5 border-t border-slate-200">
+                <span class="block text-xs font-semibold text-slate-600 mb-2">안내분야 선택</span>
+                <div id="categoryTabs" class="flex flex-wrap gap-2">
+                    <!-- JavaScript로 동적 생성 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 결과 건수 및 뷰 전환 컨트롤 -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
+            <div class="text-sm font-semibold text-slate-700">
+                검색결과: <span id="resultCount" class="text-indigo-900 font-bold text-base">0건</span> 표시 중 <span id="totalBadge" class="text-xs font-normal text-slate-500">(전체 24건 중)</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-xs text-slate-500">보기 방식:</span>
+                <button id="tableViewBtn" class="px-3 py-1 bg-indigo-900 text-white rounded text-xs font-medium transition shadow-sm">테이블형</button>
+                <button id="cardViewBtn" class="px-3 py-1 bg-slate-200 text-slate-700 hover:bg-slate-300 rounded text-xs font-medium transition">카드형</button>
+            </div>
+        </div>
+
+        <!-- 데이터 표시 영역 (테이블형) -->
+        <div id="tableViewContainer" class="bg-white rounded-xl shadow-md overflow-hidden border border-slate-200 mb-12">
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-slate-200">
+                    <thead class="bg-slate-100 text-slate-700 font-semibold text-xs uppercase tracking-wider">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left">ID</th>
+                            <th scope="col" class="px-6 py-3 text-left">서비스명</th>
+                            <th scope="col" class="px-6 py-3 text-left">안내분야</th>
+                            <th scope="col" class="px-6 py-3 text-left">소관기관</th>
+                            <th scope="col" class="px-6 py-3 text-center">온라인안내</th>
+                            <th scope="col" class="px-6 py-3 text-center">콜센터</th>
+                        </tr>
+                    </thead>
+                    <tbody id="serviceTableBody" class="divide-y divide-slate-200 bg-white text-sm">
+                        <!-- 동적 렌더링 -->
+                    </tbody>
+                </table>
+            </div>
+            <!-- 검색 결과 없음 안내 -->
+            <div id="noResults" class="hidden py-16 text-center">
+                <svg class="mx-auto h-12 w-12 text-slate-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <p class="text-slate-600 font-medium">검색 조건에 일치하는 안내서비스가 없습니다.</p>
+                <p class="text-slate-400 text-xs mt-1">검색어나 필터 조건을 변경하여 다시 시도해 주세요.</p>
+            </div>
+        </div>
+
+        <!-- 데이터 표시 영역 (카드형 - 기본 숨김) -->
+        <div id="cardViewContainer" class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+            <!-- 동적 렌더링 -->
+        </div>
+
+    </main>
+
+    <!-- 푸터 -->
+    <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 text-xs mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div>
+                <p class="font-semibold text-white mb-1">대한민국 정부 안내서비스 포털</p>
+                <p>본 시스템은 시민 편의를 위한 공공 안내서비스 통합 검색 오픈 예시 포털입니다.</p>
+            </div>
+            <div class="flex items-center space-x-6">
+                <a href="https://www.daegu.go.kr/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition underline">대구광역시 공식 홈페이지</a>
+                <a href="https://www.index.go.kr/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition underline">국가지표체계</a>
+            </div>
+        </div>
+        <div class="bg-slate-950 py-3 text-center text-slate-500">
+            &copy; 2026 Government Public Service Portal. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- 자바스크립트 비즈니스 로직 -->
+    <script>
+        // 전체 24건 안내서비스 데이터 내장
+        const serviceData = [
+          { "서비스ID": "A001", "서비스명": "주민등록 발급 안내", "안내분야": "민원", "소관기관": "국토교통부", "온라인안내": "가능", "콜센터": "1374" },
+          { "서비스ID": "A002", "서비스명": "전입신고 안내", "안내분야": "민원", "소관기관": "보건복지부", "온라인안내": "가능", "콜센터": "1352" },
+          { "서비스ID": "A003", "서비스명": "인감증명 안내", "안내분야": "민원", "소관기관": "국토교통부", "온라인안내": "가능", "콜센터": "1313" },
+          { "서비스ID": "A004", "서비스명": "민원접수 안내", "안내분야": "민원", "소관기관": "교육부", "온라인안내": "가능", "콜센터": "1341" },
+          { "서비스ID": "A005", "서비스명": "정부24 이용 안내", "안내분야": "민원", "소관기관": "국토교통부", "온라인안내": "가능", "콜센터": "1356" },
+          { "서비스ID": "A006", "서비스명": "기초연금 안내", "안내분야": "복지", "소관기관": "행정안전부", "온라인안내": "불가", "콜센터": "1386" },
+          { "서비스ID": "A007", "서비스명": "복지급여 안내", "안내분야": "복지", "소관기관": "고용노동부", "온라인안내": "가능", "콜센터": "1319" },
+          { "서비스ID": "A008", "서비스명": "장애인지원 안내", "안내분야": "복지", "소관기관": "보건복지부", "온라인안내": "가능", "콜센터": "1337" },
+          { "서비스ID": "A009", "서비스명": "아동수당 안내", "안내분야": "복지", "소관기관": "지자체", "온라인안내": "가능", "콜센터": "1326" },
+          { "서비스ID": "A010", "서비스명": "지방세 납부 안내", "안내분야": "세금", "소관기관": "보건복지부", "온라인안내": "가능", "콜센터": "1357" },
+          { "서비스ID": "A011", "서비스명": "취득세 안내", "안내분야": "세금", "소관기관": "국토교통부", "온라인안내": "가능", "콜센터": "1341" },
+          { "서비스ID": "A012", "서비스명": "재산세 안내", "안내분야": "세금", "소관기관": "지자체", "온라인안내": "가능", "콜센터": "1317" },
+          { "서비스ID": "A013", "서비스명": "자동차등록 안내", "안내분야": "교통", "소관기관": "국토교통부", "온라인안내": "가능", "콜센터": "1399" },
+          { "서비스ID": "A014", "서비스명": "운전면허 안내", "안내분야": "교통", "소관기관": "보건복지부", "온라인안내": "불가", "콜센터": "1357" },
+          { "서비스ID": "A015", "서비스명": "주정차단속 안내", "안내분야": "교통", "소관기관": "국토교통부", "온라인안내": "가능", "콜센터": "1367" },
+          { "서비스ID": "A016", "서비스명": "재난지원금 안내", "안내분야": "재난", "소관기관": "행정안전부", "온라인안내": "불가", "콜센터": "1356" },
+          { "서비스ID": "A017", "서비스명": "대피소 안내", "안내분야": "재난", "소관기관": "국세청", "온라인안내": "가능", "콜센터": "1359" },
+          { "서비스ID": "A018", "서비스명": "안전신고 안내", "안내분야": "재난", "소관기관": "국세청", "온라인안내": "가능", "콜센터": "1357" },
+          { "서비스ID": "A019", "서비스명": "국민취업지원 안내", "안내분야": "일자리", "소관기관": "지자체", "온라인안내": "가능", "콜센터": "1386" },
+          { "서비스ID": "A020", "서비스명": "구직급여 안내", "안내분야": "일자리", "소관기관": "국토교통부", "온라인안내": "불가", "콜센터": "1350" },
+          { "서비스ID": "A021", "서비스명": "청년일자리 안내", "안내분야": "일자리", "소관기관": "지자체", "온라인안내": "가능", "콜센터": "1392" },
+          { "서비스ID": "A022", "서비스명": "평생교육 안내", "안내분야": "교육", "소관기관": "국토교통부", "온라인안내": "가능", "콜센터": "1379" },
+          { "서비스ID": "A023", "서비스명": "학자금 안내", "안내분야": "교육", "소관기관": "지자체", "온라인안내": "가능", "콜센터": "1324" },
+          { "서비스ID": "A024", "서비스명": "교육비지원 안내", "안내분야": "교육", "소관기관": "행정안전부", "온라인안내": "가능", "콜센터": "1368" }
+        ];
+
+        // 상태 관리 변수
+        let currentCategory = '전체';
+        let currentView = 'table'; // 'table' or 'card'
+
+        // DOM 요소 참조
+        const searchInput = document.getElementById('searchInput');
+        const agencyFilter = document.getElementById('agencyFilter');
+        const onlineFilter = document.getElementById('onlineFilter');
+        const resetBtn = document.getElementById('resetBtn');
+        const categoryTabs = document.getElementById('categoryTabs');
+        const serviceTableBody = document.getElementById('serviceTableBody');
+        const cardViewContainer = document.getElementById('cardViewContainer');
+        const tableViewContainer = document.getElementById('tableViewContainer');
+        const resultCount = document.getElementById('resultCount');
+        const noResults = document.getElementById('noResults');
+        const tableViewBtn = document.getElementById('tableViewBtn');
+        const cardViewBtn = document.getElementById('cardViewBtn');
+
+        // 초기화 함수 실행
+        document.addEventListener('DOMContentLoaded', () => {
+            initAgencyDropdown();
+            initCategoryTabs();
+            renderServices(serviceData);
+
+            // 이벤트 리스너 등록
+            searchInput.addEventListener('input', filterAndRender);
+            agencyFilter.addEventListener('change', filterAndRender);
+            onlineFilter.addEventListener('change', filterAndRender);
+            resetBtn.addEventListener('click', resetFilters);
+
+            tableViewBtn.addEventListener('click', () => switchView('table'));
+            cardViewBtn.addEventListener('click', () => switchView('card'));
+        });
+
+        // 소관기관 드롭다운 동적 채우기
+        function initAgencyDropdown() {
+            const agencies = [...new Set(serviceData.map(item => item.소관기관))].sort();
+            agencies.forEach(agency => {
+                const option = document.createElement('option');
+                option.value = agency;
+                option.textContent = agency;
+                agencyFilter.appendChild(option);
+            });
+        }
+
+        // 안내분야 카테고리 탭 동적 생성
+        function initCategoryTabs() {
+            const categories = ['전체', ...new Set(serviceData.map(item => item.안내분야))];
+            
+            categoryTabs.innerHTML = '';
+            categories.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.textContent = cat;
+                btn.className = `px-3.5 py-1.5 rounded-full text-xs font-semibold transition shadow-sm ${
+                    cat === currentCategory 
+                        ? 'bg-indigo-900 text-white shadow' 
+                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                }`;
+                btn.addEventListener('click', () => {
+                    currentCategory = cat;
+                    updateCategoryTabsUI();
+                    filterAndRender();
+                });
+                categoryTabs.appendChild(btn);
+            });
+        }
+
+        // 카테고리 탭 UI 스타일 갱신
+        function updateCategoryTabsUI() {
+            const buttons = categoryTabs.querySelectorAll('button');
+            buttons.forEach(btn => {
+                if (btn.textContent === currentCategory) {
+                    btn.className = 'px-3.5 py-1.5 rounded-full text-xs font-semibold bg-indigo-900 text-white transition shadow-sm shadow';
+                } else {
+                    btn.className = 'px-3.5 py-1.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition shadow-sm';
+                }
+            });
+        }
+
+        // 필터 조건에 따른 데이터 필터링 및 렌더링
+        function filterAndRender() {
+            const keyword = searchInput.value.trim().toLowerCase();
+            const selectedAgency = agencyFilter.value;
+            const selectedOnline = onlineFilter.value;
+
+            const filtered = serviceData.filter(item => {
+                // 키워드 검색 (서비스명)
+                const matchKeyword = item.서비스명.toLowerCase().includes(keyword);
+                // 안내분야 필터
+                const matchCategory = (currentCategory === '전체' || item.안내분야 === currentCategory);
+                // 소관기관 필터
+                const matchAgency = (!selectedAgency || item.소관기관 === selectedAgency);
+                // 온라인안내 여부 필터
+                const matchOnline = (!selectedOnline || item.온라인안내 === selectedOnline);
+
+                return matchKeyword && matchCategory && matchAgency && matchOnline;
+            });
+
+            renderServices(filtered);
+        }
+
+        // 렌더링 총괄 함수
+        function renderServices(data) {
+            resultCount.textContent = `${data.length}건`;
+
+            if (data.length === 0) {
+                tableViewContainer.querySelector('table').classList.add('hidden');
+                noResults.classList.remove('hidden');
+                cardViewContainer.classList.add('hidden');
+                return;
+            } else {
+                tableViewContainer.querySelector('table').classList.remove('hidden');
+                noResults.classList.add('hidden');
+            }
+
+            // 테이블 뷰 렌더링
+            let tableHtml = '';
+            data.forEach(item => {
+                const badgeColor = item.온라인안내 === '가능' 
+                    ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' 
+                    : 'bg-rose-100 text-rose-800 border border-rose-300';
+
+                tableHtml += `
+                    <tr class="hover:bg-slate-50 transition">
+                        <td class="px-6 py-4 whitespace-nowrap text-xs font-medium text-slate-500">${item.서비스ID}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-slate-900">${highlightKeyword(item.서비스명, searchInput.value)}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-blue-50 text-indigo-900 border border-blue-200">
+                                ${item.안내분야}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-slate-600">${item.소관기관}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-center">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold ${badgeColor}">
+                                ${item.온라인안내}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-mono font-medium text-slate-700">
+                            📞 ${item.콜센터}
+                        </td>
+                    </tr>
+                `;
+            });
+            serviceTableBody.innerHTML = tableHtml;
+
+            // 카드 뷰 렌더링
+            let cardHtml = '';
+            data.forEach(item => {
+                const badgeColor = item.온라인안내 === '가능' 
+                    ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' 
+                    : 'bg-rose-100 text-rose-800 border border-rose-300';
+
+                cardHtml += `
+                    <div class="bg-white rounded-xl shadow-md border border-slate-200 p-5 flex flex-col justify-between hover:shadow-lg transition">
+                        <div>
+                            <div class="flex justify-between items-start mb-3">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-blue-50 text-indigo-900 border border-blue-200">
+                                    ${item.안내분야}
+                                </span>
+                                <span class="text-xs font-mono text-slate-400">${item.서비스ID}</span>
+                            </div>
+                            <h3 class="text-base font-bold text-slate-900 mb-2">${item.서비스명}</h3>
+                            <p class="text-xs text-slate-500 mb-4">소관기관: <span class="font-medium text-slate-700">${item.소관기관}</span></p>
+                        </div>
+                        <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold ${badgeColor}">
+                                온라인안내 ${item.온라인안내}
+                            </span>
+                            <div class="text-xs font-mono font-semibold text-indigo-900 bg-slate-100 px-2.5 py-1 rounded">
+                                📞 ${item.콜센터}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            cardViewContainer.innerHTML = cardHtml;
+        }
+
+        // 검색어 하이라이트 유틸리티
+        function highlightKeyword(text, keyword) {
+            if (!keyword) return text;
+            const regex = new RegExp(`(${keyword})`, 'gi');
+            return text.replace(regex, '<span class="bg-yellow-200 text-indigo-900 px-0.5 rounded">$1</span>');
+        }
+
+        // 필터 조건 전체 초기화
+        function resetFilters() {
+            searchInput.value = '';
+            agencyFilter.value = '';
+            onlineFilter.value = '';
+            currentCategory = '전체';
+            updateCategoryTabsUI();
+            filterAndRender();
+        }
+
+        // 보기 방식 전환 (테이블형 <-> 카드형)
+        function switchView(type) {
+            currentView = type;
+            if (type === 'table') {
+                tableViewContainer.classList.remove('hidden');
+                cardViewContainer.classList.add('hidden');
+                tableViewBtn.className = 'px-3 py-1 bg-indigo-900 text-white rounded text-xs font-medium transition shadow-sm';
+                cardViewBtn.className = 'px-3 py-1 bg-slate-200 text-slate-700 hover:bg-slate-300 rounded text-xs font-medium transition';
+            } else {
+                tableViewContainer.classList.add('hidden');
+                cardViewContainer.classList.remove('hidden');
+                cardViewBtn.className = 'px-3 py-1 bg-indigo-900 text-white rounded text-xs font-medium transition shadow-sm';
+                tableViewBtn.className = 'px-3 py-1 bg-slate-200 text-slate-700 hover:bg-slate-300 rounded text-xs font-medium transition';
+            }
+        }
+    </script>
+</body>
+</html>
